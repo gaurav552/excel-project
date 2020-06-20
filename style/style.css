@@ -11,6 +11,13 @@ body {
     width: 100vw;
 }
 
+a{
+    background: none;
+}
+
+h2{
+    margin-bottom: 1rem;
+}
 
 
 .container {
