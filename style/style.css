@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-around;
+    margin: 1rem auto;
+    overflow: hidden;
+}
+
+button {
+    margin-top: 1rem;
+}
+
+.dropzone .dz-message .dz-button {
+    padding: 1rem!important;
+}
+
+.card-header {
+    text-align: center;
+}
+
+.card-title {
+    text-align: center;
+}

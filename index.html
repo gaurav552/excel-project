@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="drop/dropzone.min.css">
+
+
+
+    <script defer src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script defer src="drop/dropzone.min.js"></script>
+    <!-- <script defer src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/dropzone.min.js"></script> -->
+    <title>Excel Analysis</title>
+</head>
+
+<body>
+    <div class="paper container">
+
+        <h1>Excel Analyser</h1>
+
+        <div class="card" style="width: 20rem; z-index: 10;">
+            <div class="card-header">Click to Browse Files or Drop your files here</div>
+            <div class="card-body">
+                <form action="/" class="dropzone">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                    </div>
+                </form>
+                <button id="analyse" class="btn-danger">Analyse</button>
+            </div>
+        </div>
+
+    </div>
+
+    <template id="complete_template">
+        <div class="card" style="z-index: 1;">
+            <div class="card-body">
+                <h4 class="card-title">Analysis Complete.</h4>
+                <button class="btn-block">Download File</button>
+            </div>
+        </div>
+    </template>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+    <script>
+        document.querySelector("#analyse").addEventListener("click", e => {
+
+
+
+
+            if (document.querySelectorAll(".card").length < 2) {
+                let card = getTemplate("complete_template").querySelector(".card")
+                document.querySelector(".paper").appendChild(card)
+                card.classList.add('appolo')
+                anime({
+                    targets: card,
+                    delay: 100,
+                    translateY: ['300', '0'],
+                    duration: 200
+                })
+            } else {
+                let card = document.querySelector(".appolo")
+                
+                anime({
+                    targets: card,
+                    delay: 100,
+                    translateY: ['0', '300'],
+                    duration: 200,
+                    complete:function(){
+                        card.remove()
+                    }
+                })
+            }
+
+        })
+
+
+        function getTemplate(TId) {
+            if (!window.templates) {
+                window.templates = {}
+            }
+
+            if (!window.templates[TId]) {
+                window.templates[TId] = document.querySelector(`template#${TId}`).content
+            }
+            return document.importNode(window.templates[TId], true)
+        }
+    </script>
+
+</body>
+
+</html>
