@@ -19,37 +19,26 @@
 </head>
 
 <body>
-    <div class="container">
 
-        <a href="https://github.com/gaurav552/excel-project" ><i class="typcn icon typcn-social-github"></i> Github</a>
+    <header>
+        <div class="logo"><img src="style/logo.svg" alt="" height="60" srcset=""></div>
+        <div class="name">First Year Campus Project</div>
+    </header>
 
-        <div class="cards">
-            <div class="card main">
-                <h2>Excel Analyser</h2>
-                <div class="card-header">Click to Browse Files or Drop your files here</div>
-                <div class="card-body">
-                    <form action="/" class="dropzone">
-                        <div class="fallback">
-                            <input name="file" type="file" multiple />
-                        </div>
-                    </form>
-                    <button id="analyse">Analyse</button>
-                </div>
+    <div class="main">
+        <div class="content">
+            <div class="drop-area">
+                <form action="/" class="dropzone">
+                    <input type="file" name="file">
+                </form>
             </div>
+            <button>Find Match</button>
         </div>
-
-
     </div>
 
-    <template id="complete_template">
-        <div class="card" style="z-index: 1;">
-            <div class="card-body">
-                <h4 class="card-title">Analysis Complete.</h4>
-                <button class="btn-block">Download File</button>
-            </div>
-        </div>
-    </template>
-    
+    <footer>
+        <div class="college">Laurentian University. Sudbury, Ontario, Canada. All Rights Reserved. © 2020.</div>
+    </footer>
 
 </body>
 

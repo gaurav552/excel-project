@@ -8,11 +8,3 @@ function getTemplate(TId) {
     }
     return document.importNode(window.templates[TId], true)
 }
-
-document.querySelector("#analyse").addEventListener("click", e => {
-    let card = document.querySelectorAll(".card")
-    if(card.length <= 1){
-        let other = getTemplate("complete_template").querySelector(".card")
-        document.querySelector(".cards").appendChild(other)
-    }
-})
