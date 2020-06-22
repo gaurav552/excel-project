@@ -41,7 +41,7 @@ header{
 .name{
     width: 100%;
     text-align: center;
-    font-size: clamp(1.4rem, 5vw, 2.4rem);
+    font-size: clamp(1.4rem, 4vw, 2.4rem);
     color: white;
     font-weight: 700;
 }
