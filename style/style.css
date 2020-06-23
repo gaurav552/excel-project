@@ -26,6 +26,7 @@ header, footer{
 header{
     position: relative;
     justify-content: flex-start;
+    box-shadow: 0 .3rem 1.6rem rgba(0, 0, 0, 0.4);
 }
 
 .logo{
@@ -63,17 +64,38 @@ footer{
 .content{
     background: #ebebeb;
     width: min(40rem, 70%);
-    height: 20rem;
+    height: 22rem;
     padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    box-shadow: inset -.3rem -.3rem .6rem rgba(0, 0, 0, .1),  inset .3rem .3rem .6rem rgba(0, 0, 0, 0.1) ;
 }
 
 footer{
     height: 6rem;
     padding: 3rem;
+    box-shadow: 0 -.3rem 1.6rem rgba(0, 0, 0, 0.4);
+}
+
+.drop-area{
+    transition: box-shadow .1s ease-in;
+    box-shadow: .3rem .3rem .6rem rgba(0, 0, 0, .1);
+    width: 100%;
+}
+
+.drop-area:hover{
+    box-shadow: .1rem .1rem .2rem rgba(0, 0, 0, .1);
+}
+.dropzone{
+    border: none!important;
+    height: 12rem;
+}
+
+.dropzone .dz-message {
+    /* text-align: center; */
+    margin: 3.3em 0!important;
 }
 
 button{

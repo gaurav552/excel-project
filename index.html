@@ -8,7 +8,7 @@
     <!-- <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css"> -->
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="drop/dropzone.min.css">
-
+    <!-- <link rel="stylesheet" href="drop/basic.min.css"> -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
@@ -28,9 +28,11 @@
     <div class="main">
         <div class="content">
             <div class="drop-area">
-                <form action="/" class="dropzone">
-                    <input type="file" name="file">
-                </form>
+                <form action="/file-upload" class="dropzone">
+                    <div class="fallback">
+                      <input name="file" type="file" multiple />
+                    </div>
+                  </form>
             </div>
             <button>Find Match</button>
         </div>
