@@ -1,13 +1,11 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
-
-
-body{
+body {
     height: 100vh;
     display: flex;
     justify-content: space-between;
@@ -15,31 +13,31 @@ body{
     font-family: 'Open Sans', sans-serif;
 }
 
-
-header, footer{
+header,
+footer {
     background: #003e7e;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-header{
+header {
     position: relative;
     justify-content: flex-start;
     box-shadow: 0 .3rem 1.6rem rgba(0, 0, 0, 0.4);
 }
 
-.logo{
+.logo {
     background: white;
     max-width: 14rem;
     margin: 1rem;
 }
 
-.logo>img{
+.logo>img {
     max-width: 100%;
 }
 
-.name{
+.name {
     width: 100%;
     text-align: center;
     font-size: clamp(1.4rem, 4vw, 2.4rem);
@@ -47,13 +45,13 @@ header{
     font-weight: 700;
 }
 
-footer{
+footer {
     bottom: 0;
     width: 100%;
     color: white;
 }
 
-.main{
+.main {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -61,44 +59,72 @@ footer{
     justify-content: center;
 }
 
-.content{
+.content {
     background: #ebebeb;
-    width: min(40rem, 70%);
-    height: 22rem;
+    width: min(40rem, 86%);
+    height: 24rem;
     padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    box-shadow: inset -.3rem -.3rem .6rem rgba(0, 0, 0, .1),  inset .3rem .3rem .6rem rgba(0, 0, 0, 0.1) ;
+    box-shadow: inset -.3rem -.3rem .6rem rgba(0, 0, 0, .1), inset .3rem .3rem .6rem rgba(0, 0, 0, 0.1);
 }
 
-footer{
+footer {
     height: 6rem;
     padding: 3rem;
     box-shadow: 0 -.3rem 1.6rem rgba(0, 0, 0, 0.4);
 }
 
-.drop-area{
+.info{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    color: #003e7e;
+}
+
+.dropper {
     transition: box-shadow .1s ease-in;
     box-shadow: .3rem .3rem .6rem rgba(0, 0, 0, .1);
     width: 100%;
+    display: flex;
 }
 
-.drop-area:hover{
+.drop-area {
+    transition: box-shadow .1s ease-in;
+    box-shadow: .3rem .3rem .6rem rgba(0, 0, 0, .1);
+    width: 50%;
+}
+
+.drop-area:nth-child(1){
+    margin-right: .5rem;
+}
+
+.drop-area:nth-child(2){
+    margin-left: .5rem;
+}
+
+
+.drop-area:hover {
     box-shadow: .1rem .1rem .2rem rgba(0, 0, 0, .1);
 }
-.dropzone{
+
+.dropzone {
     border: none!important;
-    height: 12rem;
+    height: 13rem;
 }
 
 .dropzone .dz-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
     /* text-align: center; */
-    margin: 3.3em 0!important;
+    margin: 0!important;
 }
 
-button{
+#finder {
     border: .2rem solid #ffc325;
     background: #003e7e;
     width: 9rem;
@@ -106,8 +132,9 @@ button{
     color: white;
 }
 
-@media (min-width: 1150px){
-    .name{
+@media (min-width: 1150px) {
+    .name {
         position: absolute;
     }
+    
 }

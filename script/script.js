@@ -8,3 +8,16 @@ function getTemplate(TId) {
     }
     return document.importNode(window.templates[TId], true)
 }
+
+
+
+
+window.addEventListener('load', (event) => {
+    document.querySelectorAll(".dz-button").forEach((element, index) => {
+        if(index == 0){
+            element.innerHTML = 'Drop Student\'s File'
+        }else{
+            element.innerHTML = 'Drop Teacher\'s File'
+        }
+    });
+});
