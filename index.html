@@ -35,28 +35,33 @@
 
             <div class="dropper">
                 <div class="drop-area">
-                    <form action="/file-upload" class="dropzone">
+                    <form class="dropzone" id="student">
                         <div class="fallback">
-                          <input name="file" type="file" />
+                            <label>Student File: <input name="file" id="stdfile" type="file" /></label>
                         </div>
-                      </form>
+                    </form>
                 </div>
                 <div class="drop-area">
-                    <form action="/file-upload" class="dropzone">
+                    <form class="dropzone" id="teacher">
                         <div class="fallback">
-                          <input name="file" type="file" />
+                            <label>Teacher File: <input name="file" id="teachfile" type="file" /></label>
                         </div>
-                      </form>
+                    </form>
                 </div>
             </div>
             <button id="finder">Find Match</button>
         </div>
     </div>
 
+    <!-- <form action="/file-upload" method="POST" id="teacher">
+        <div class="fallback">
+            <input name="file" id="upload" type="file" />
+        </div>
+    </form>
+    <button id="parse">parse</button> -->
     <footer>
         <div class="college">Laurentian University. Sudbury, Ontario, Canada. All Rights Reserved. © 2020.</div>
     </footer>
-
 </body>
 
 </html>
