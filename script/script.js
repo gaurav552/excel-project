@@ -24,6 +24,7 @@ class drzon {
         let zone = new Dropzone("#" + name, opt)
 
         zone.on("addedfile", function(file) {
+            document.querySelector("#"+name).parentElement.classList.add("dragger")
             var r = new FileReader();
             let col
             r.onload = function(e) {
@@ -47,11 +48,20 @@ class drzon {
         });
 
         zone.on("removedfile", function(){
+            document.querySelector("#"+name).parentElement.classList.remove("dragger")
             if (name == 'student') {
                 f1 = null
             } else {
                 f2 = null
             }
+        })
+
+        zone.on("dragenter",function(){
+            document.querySelector("#"+name).parentElement.classList.add("dragger")
+        })
+
+        zone.on("dragleave",function(){
+            document.querySelector("#"+name).parentElement.classList.remove("dragger")
         })
 
         return zone
