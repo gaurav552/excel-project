@@ -46,6 +46,14 @@ class drzon {
             zone.addFile(file)
         });
 
+        zone.on("removedfile", function(){
+            if (name == 'student') {
+                f1 = null
+            } else {
+                f2 = null
+            }
+        })
+
         return zone
     }
 }
@@ -54,19 +62,16 @@ let stdzone = new drzon("student")
 let teazone = new drzon("teacher")
 
 document.getElementById("finder").addEventListener("click", e => {
-    let c = f1
-    console.log(c)
-    for (var key in c) {
-        if (c.hasOwnProperty(key)) {
-            let d = c[key]
-            // console.log(d)
-                // for (var key2 in d){
-                //     if (d.hasOwnProperty(key2)){
-                //         console.log(key2 + " -> " + d[key2])
-                //     } 
-                // }
-        }
+    if (f1 && f2) {
+        console.log(f1)
+        console.log(f2)
+    } else {
+        document.querySelector(".content").classList.add("shakeX")
+        setTimeout(() => {
+            document.querySelector(".content").classList.remove("shakeX")
+        }, 500);
     }
+
 })
 
 // 
