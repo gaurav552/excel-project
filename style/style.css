@@ -110,7 +110,7 @@ footer {
 }
 
 .dragger {
-    border: 1px dashed red;
+    border: 2px dashed rgba(241, 134, 134, 0.774);
 }
 
 .dropzone {
@@ -120,6 +120,12 @@ footer {
 
 .dz-progress{
     visibility: hidden;
+}
+.dz-image{
+    background: none!important;
+}
+.dz-preview, .dz-size{
+    width: 100%;
 }
 
 /* label {
