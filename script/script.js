@@ -16,7 +16,8 @@ let opt = {
     maxFiles: 1,
     autoProcessQueue: false,
     url: '/',
-    dictDefaultMessage: ""
+    dictDefaultMessage: "",
+    acceptedFiles: '.csv, .xls, .xlsx, .xlm, .xlsm, .ods'
 }
 class drzon {
     constructor(name) {
@@ -24,7 +25,7 @@ class drzon {
         let zone = new Dropzone("#" + name, opt)
 
         zone.on("addedfile", function(file) {
-            document.querySelector("#"+name).parentElement.classList.add("dragger")
+            document.querySelector("#" + name).parentElement.classList.add("dragger")
             var r = new FileReader();
             let col
             r.onload = function(e) {
@@ -47,8 +48,13 @@ class drzon {
             zone.addFile(file)
         });
 
-        zone.on("removedfile", function(){
-            document.querySelector("#"+name).parentElement.classList.remove("dragger")
+        zone.on("removedfile", function() {
+            document.querySelector("#" + name).parentElement.classList.remove("dragger")
+            let down = document.querySelector("#download")
+            down.classList.add("slideOutUp")
+            setTimeout(() => {
+                down.style.display = "none"
+            }, 500);
             if (name == 'student') {
                 f1 = null
             } else {
@@ -56,12 +62,12 @@ class drzon {
             }
         })
 
-        zone.on("dragenter",function(){
-            document.querySelector("#"+name).parentElement.classList.add("dragger")
+        zone.on("dragenter", function() {
+            document.querySelector("#" + name).parentElement.classList.add("dragger")
         })
 
-        zone.on("dragleave",function(){
-            document.querySelector("#"+name).parentElement.classList.remove("dragger")
+        zone.on("dragleave", function() {
+            document.querySelector("#" + name).parentElement.classList.remove("dragger")
         })
 
         return zone
@@ -71,17 +77,39 @@ class drzon {
 let stdzone = new drzon("student")
 let teazone = new drzon("teacher")
 
+document.querySelector("#download").addEventListener("click", e => {
+    let temp = [
+        {"one":"one",'two':"two","thr":"three"}
+    ]
+    var workSheet = XLSX.utils.json_to_sheet(temp);
+    console.log("THis is Worksheet", workSheet);
+    var wb = XLSX.utils.book_new();
+    console.log("THis is workbook", wb)
+    XLSX.utils.book_append_sheet(wb, workSheet);
+    var bin = XLSX.write(wb, { bookType: 'xlsx', type:"binary"});
+    saveAs(new Blob([s2ab(bin)],{type:"application/octet-stream"}), 'book.xlsx')
+})
+
+function s2ab(s) { 
+    var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
+    var view = new Uint8Array(buf);  //create uint8array as viewer
+    for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
+    return buf;    
+}
+
 document.getElementById("finder").addEventListener("click", e => {
+    let down = document.querySelector("#download")
     if (f1 && f2) {
         console.log(f1)
         console.log(f2)
+        down.style.display = "block"
+        down.classList.add("slideInDown")
     } else {
         document.querySelector(".content").classList.add("shakeX")
         setTimeout(() => {
             document.querySelector(".content").classList.remove("shakeX")
         }, 500);
     }
-
 })
 
 // 

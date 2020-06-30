@@ -11,6 +11,7 @@ body {
     justify-content: space-between;
     flex-direction: column;
     font-family: 'Open Sans', sans-serif;
+    position: relative;
 }
 
 header,
@@ -19,6 +20,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 5;
 }
 
 header {
@@ -62,7 +64,7 @@ footer {
 .content {
     background: #ebebeb;
     width: min(40rem, 86%);
-    height: 24rem;
+    height: 18rem;
     padding: 2rem;
     display: flex;
     flex-direction: column;
@@ -115,7 +117,7 @@ footer {
 
 .dropzone {
     border: none!important;
-    height: 13rem;
+    height: 9rem!important;
 }
 
 .dz-progress{
@@ -128,12 +130,6 @@ footer {
     width: 100%;
 }
 
-/* label {
-    padding: 1rem;
-    width: 100%;
-    height: 100%;
-    /* text-align: center; */
-}
 
 [name='file']{
     margin: 2rem auto;
@@ -151,9 +147,23 @@ footer {
 #finder {
     border: .2rem solid #ffc325;
     background: #003e7e;
-    width: 9rem;
-    height: 3rem;
     color: white;
+}
+
+#download {
+    border: .2rem solid #ffc325;
+    background: #003e7e;
+    z-index: 1;
+    color: white;
+    position: absolute;
+    align-self: center; 
+    display: none;
+    top: clamp(6.2rem, 20vw, 8rem);
+}
+
+button{
+    width: 7rem;
+    height: 2.5rem;
 }
 
 form {
@@ -166,11 +176,28 @@ form {
     background: white;
 }
 
+@media (min-width: 350px) {
+    .content{
+        height: 24rem;
+    }
+
+    button{
+        width: 9rem;
+        height: 3rem;
+    }
+
+    .dropzone {
+        height: 13rem!important;
+    }
+}
+
 @media (min-width: 1150px) {
     .name {
         position: absolute;
     }
 }
+
+
 
 @keyframes shakeX {
     from,
@@ -195,5 +222,35 @@ form {
   }
   
   .shakeX {
-    animation: shakeX .5s ease-in;
+    animation: shakeX .5s cubic-bezier(0.03, 0.54, 1, 0.42);
+  }
+
+  @keyframes slideInDown {
+    from {
+      transform: translate3d(0, -100%, 0);
+      visibility: visible;
+    }
+  
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  .slideInDown {
+    animation: slideInDown .5s cubic-bezier(0.03, 0.54, 1, 0.42);
+  }
+
+  @keyframes slideOutUp {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+  
+    to {
+      visibility: hidden;
+      transform: translate3d(0, -100%, 0);
+    }
+  }
+  
+  .slideOutUp {
+    animation: slideOutUp .5s cubic-bezier(0.03, 0.54, 1, 0.42);
   }
