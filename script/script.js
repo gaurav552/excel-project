@@ -10,6 +10,7 @@ function getTemplate(TId) {
 }
 
 let f1, f2
+let finalFile = []
 Dropzone.autoDiscover = false;
 let opt = {
     addRemoveLinks: true,
@@ -42,16 +43,19 @@ class drzon {
                 });
             }
             r.readAsBinaryString(file);
+            finalFile = []
         })
         zone.on("maxfilesexceeded", function(file) {
             zone.removeAllFiles();
             zone.addFile(file)
+            finalFile = []
         });
 
         zone.on("removedfile", function() {
             document.querySelector("#" + name).parentElement.classList.remove("dragger")
             let down = document.querySelector("#download")
             down.classList.add("slideOutUp")
+            finalFile = []
             setTimeout(() => {
                 down.style.display = "none"
             }, 500);
@@ -77,7 +81,7 @@ class drzon {
 let stdzone = new drzon("student")
 let teazone = new drzon("teacher")
 
-let finalFile = []
+
 
 document.querySelector("#download").addEventListener("click", e => {
     let temp = [
@@ -131,7 +135,7 @@ document.getElementById("finder").addEventListener("click", e => {
                 data["Student Name"] = name
                 let teachr = findTeacher(data['Program'])
                 // console.log(data['Program'])
-                console.log(teachr.Name)
+                // console.log(teachr.Name)
                 data['Teacher Name'] = teachr.Name
                 data['Teacher Program'] = teachr.Program
 
@@ -164,7 +168,7 @@ function findTeacher(program) {
                     // console.log(columName+" : "+program)
                     if(columName == 'Program of Study'){
                         if (row[columName] == program){
-                            console.log(row[columName] +" : "+ program)
+                            // console.log(row[columName] +" : "+ program)
                             selected.Name = row['Name']
                             selected.Program = row[columName]
                         }
