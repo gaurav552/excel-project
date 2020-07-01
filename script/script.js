@@ -17,7 +17,7 @@ let opt = {
     autoProcessQueue: false,
     url: '/',
     dictDefaultMessage: "",
-    acceptedFiles: '.csv, .xls, .xlsx, .xlm, .xlsm, .ods'
+    acceptedFiles: '.xls, .xlsx, .xlm, .xlsm'
 }
 class drzon {
     constructor(name) {
@@ -77,31 +77,69 @@ class drzon {
 let stdzone = new drzon("student")
 let teazone = new drzon("teacher")
 
+let finalFile = []
+
 document.querySelector("#download").addEventListener("click", e => {
     let temp = [
-        {"one":"one",'two':"two","thr":"three"}
+        { "one": "one", 'two': "two", "thr": "three" }
     ]
-    var workSheet = XLSX.utils.json_to_sheet(temp);
+    var workSheet = XLSX.utils.json_to_sheet(finalFile);
     console.log("THis is Worksheet", workSheet);
     var wb = XLSX.utils.book_new();
     console.log("THis is workbook", wb)
     XLSX.utils.book_append_sheet(wb, workSheet);
-    var bin = XLSX.write(wb, { bookType: 'xlsx', type:"binary"});
-    saveAs(new Blob([s2ab(bin)],{type:"application/octet-stream"}), 'book.xlsx')
+    var bin = XLSX.write(wb, { bookType: 'xlsx', type: "binary" });
+    saveAs(new Blob([s2ab(bin)], { type: "application/octet-stream" }), 'book.xlsx')
 })
 
-function s2ab(s) { 
+function s2ab(s) {
     var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
-    var view = new Uint8Array(buf);  //create uint8array as viewer
-    for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
-    return buf;    
+    var view = new Uint8Array(buf); //create uint8array as viewer
+    for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
+    return buf;
 }
 
 document.getElementById("finder").addEventListener("click", e => {
     let down = document.querySelector("#download")
     if (f1 && f2) {
-        console.log(f1)
-        console.log(f2)
+        for (var arrayIndex in f1) {
+            let data = {
+                'Student Name': "",
+                'Program': "",
+                'Teacher Name': "",
+                'Teacher Program': ""
+            }
+            if (f1.hasOwnProperty(arrayIndex)) {
+                // console.log(arrayIndex+" : key")
+                let row = f1[arrayIndex]
+                    // console.log(d+" : d")
+                let name = ""
+                for (var columnName in row) {
+                    if (row.hasOwnProperty(columnName)) {
+                    
+                        if (columnName == 'First Name') {
+                            name += row[columnName]
+                        } else if (columnName == 'Last Name'){
+                            name += ' '+row[columnName]
+                        }
+                        if (columnName == 'Program Name') {
+                            data["Program"] = row[columnName]
+                        }
+                        // console.log(columnName + " -> " + row[columnName])
+                    }
+                }
+                data["Student Name"] = name
+                let teachr = findTeacher(data['Program'])
+                // console.log(data['Program'])
+                console.log(teachr.Name)
+                data['Teacher Name'] = teachr.Name
+                data['Teacher Program'] = teachr.Program
+
+                finalFile.push(data)
+            }
+        }
+
+
         down.style.display = "block"
         down.classList.add("slideInDown")
     } else {
@@ -111,6 +149,32 @@ document.getElementById("finder").addEventListener("click", e => {
         }, 500);
     }
 })
+
+function findTeacher(program) {
+    // console.log("match : "+ program)
+    let selected = {
+        'Name': '',
+        'Program':''
+    }
+    for (var arrayIndex in f2) {
+        if (f2.hasOwnProperty(arrayIndex)) {
+            let row = f2[arrayIndex]
+            for (var columName in row) {
+                if (row.hasOwnProperty(columName)) {
+                    // console.log(columName+" : "+program)
+                    if(columName == 'Program of Study'){
+                        if (row[columName] == program){
+                            console.log(row[columName] +" : "+ program)
+                            selected.Name = row['Name']
+                            selected.Program = row[columName]
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return selected
+}
 
 // 
 
