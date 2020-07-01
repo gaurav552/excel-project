@@ -114,28 +114,23 @@ document.getElementById("finder").addEventListener("click", e => {
                 'Teacher Program': ""
             }
             if (f1.hasOwnProperty(arrayIndex)) {
-                // console.log(arrayIndex+" : key")
                 let row = f1[arrayIndex]
-                    // console.log(d+" : d")
                 let name = ""
                 for (var columnName in row) {
                     if (row.hasOwnProperty(columnName)) {
-                    
+
                         if (columnName == 'First Name') {
                             name += row[columnName]
-                        } else if (columnName == 'Last Name'){
-                            name += ' '+row[columnName]
+                        } else if (columnName == 'Last Name') {
+                            name += ' ' + row[columnName]
                         }
                         if (columnName == 'Program Name') {
                             data["Program"] = row[columnName]
                         }
-                        // console.log(columnName + " -> " + row[columnName])
                     }
                 }
                 data["Student Name"] = name
                 let teachr = findTeacher(data['Program'])
-                // console.log(data['Program'])
-                // console.log(teachr.Name)
                 data['Teacher Name'] = teachr.Name
                 data['Teacher Program'] = teachr.Program
 
@@ -155,10 +150,9 @@ document.getElementById("finder").addEventListener("click", e => {
 })
 
 function findTeacher(program) {
-    // console.log("match : "+ program)
     let selected = {
         'Name': '',
-        'Program':''
+        'Program': ''
     }
     for (var arrayIndex in f2) {
         if (f2.hasOwnProperty(arrayIndex)) {
@@ -166,8 +160,8 @@ function findTeacher(program) {
             for (var columName in row) {
                 if (row.hasOwnProperty(columName)) {
                     // console.log(columName+" : "+program)
-                    if(columName == 'Program of Study'){
-                        if (row[columName] == program){
+                    if (columName == 'Program of Study') {
+                        if (row[columName] == program) {
                             // console.log(row[columName] +" : "+ program)
                             selected.Name = row['Name']
                             selected.Program = row[columName]
@@ -179,57 +173,3 @@ function findTeacher(program) {
     }
     return selected
 }
-
-// 
-
-// document.getElementById("stdfile").addEventListener("change", e => {
-//     f1 = e.target.files[0]
-// })
-
-// document.getElementById("teachfile").addEventListener("change", e => {
-//     f2 = e.target.files[0]
-// })
-
-// document.getElementById("finder").addEventListener("click", e => {
-
-//     if (f1 && f2) {
-
-//         var r1 = new FileReader();
-//         let col1, col2
-//         r1.onload = function(e) {
-//             let data = e.target.result
-//             let wb = XLSX.read(data, { type: 'binary' })
-//             wb.SheetNames.forEach(sheet => {
-//                 col1 = JSON.stringify(XLSX.utils.sheet_to_row_object_array(wb.Sheets[sheet]))
-//             });
-//         }
-//         r1.readAsBinaryString(f1);
-
-//         var r2 = new FileReader();
-//         r2.onload = function(e) {
-//             let data = e.target.result
-//             let wb = XLSX.read(data, { type: 'binary' })
-//             wb.SheetNames.forEach(sheet => {
-//                 col2 = JSON.stringify(XLSX.utils.sheet_to_row_object_array(wb.Sheets[sheet]))
-//             });
-//         }
-//         r2.readAsBinaryString(f2);
-
-//         setTimeout(() => {
-//             let c = JSON.parse(col1)
-//             for (var key in c) {
-//                 if (c.hasOwnProperty(key)) {
-//                     let d = c[key]
-//                     console.log(d)
-//                         // for (var key2 in d){
-//                         //     if (d.hasOwnProperty(key2)){
-//                         //         console.log(key2 + " -> " + d[key2])
-//                         //     } 
-//                         // }
-//                 }
-//             }
-
-//         }, 100);
-
-//     }
-// })
