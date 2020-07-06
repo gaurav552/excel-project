@@ -116,9 +116,6 @@
             let teazone = new drzon("teacher")
 
             document.querySelector("#download").addEventListener("click", e => {
-                let temp = [
-                    { "one": "one", 'two': "two", "thr": "three" }
-                ]
                 var workSheet = XLSX.utils.json_to_sheet(finalFile);
                 console.log("THis is Worksheet", workSheet);
                 var wb = XLSX.utils.book_new();
