@@ -55,6 +55,7 @@ footer {
 
 .main {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,13 +65,22 @@ footer {
 .content {
     background: #ebebeb;
     width: min(40rem, 86%);
-    height: 18rem;
+    height: 15rem;
     padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     box-shadow: inset -.3rem -.3rem .6rem rgba(0, 0, 0, .1), inset .3rem .3rem .6rem rgba(0, 0, 0, 0.1);
+}
+
+.content2 {
+    /* width: min(50rem, 90%); */
+    height: 25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 
 footer {
@@ -170,10 +180,75 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: .5rem;
+}
+
+.fg:nth-child(2){
+    margin-top: 1rem;
+}
+
+.fg{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+#name, #password{
+    width: 100%;
+    height: 3rem;
+    border-radius: .4rem;
+    font-size: 1.2rem;
+    padding: .5rem;
+    border: 1px solid white;
+    background: rgba(255, 255, 255, 0.082);
+    color: white;
+    outline:none;
+}
+
+#name:focus, #password:focus{
+    border: 2px solid white;
+    box-shadow: 0 0 .6rem .2rem rgba(255, 255, 255, 0.4);
+}
+
+#login_submit{
+    width: 100%;
+    background: white;
+    color: #003e7e;
+    border: none;
+    outline: none;
+    height: 3rem;
+    margin-top: 2rem;
+    font-size: 1.1rem;
+}
+
+#login_submit:focus{
+    outline:1px solid white;
+    border: 2px solid #003e7e;
+}
+
+#login_submit:active{
+    background-color: #003e7e;
+    color: white;
+}
+
+label{
+    width: 100%;
+    text-align: left;
+    margin: .3rem;
+    font-size: .9rem;
 }
 
 .drop-area {
     background: white;
+}
+
+
+#login_form{
+    height: 50%;
+    display: block;
+    text-align: center;
 }
 
 @media (min-width: 350px) {

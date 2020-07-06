@@ -15,8 +15,44 @@
     <script defer src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script defer src="drop/dropzone.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>
+
     <script defer src="script/script.js"></script>
     <title>Excel Analysis</title>
+
+    <style>
+        .login::before {
+            background-color: #7272d9;
+            display: block;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            content: "";
+            z-index: -2;
+            /* background-blend-mode: luminosity; */
+    filter: blur(5px);
+        }
+        
+        .login::after {
+            width: 100%;
+            height: 100%;
+            background-color: #7272d9;
+            background-image: url(../img/bg.jpg);
+            /* background-blend-mode: luminosity; */
+            background-size: cover;
+            filter: blur(3px);
+            z-index: -2;
+            display: block;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            content: "";
+            mix-blend-mode: multiply;
+        }
+    </style>
 </head>
 
 <body>
@@ -27,6 +63,26 @@
     </header>
 
     <div class="main">
+        <div class="login">
+            <div class="content2">
+                <h1 style="color: white;font-weight: 300;">Sign In</h1>
+                <form id="login_form">
+                    <div class="fg">
+                        <label for="name">User Name</label>
+                        <input type="text" id="name" required autocomplete="off">
+                    </div>
+
+                    <div class="fg">
+                        <label for="password">Password</label>
+                        <input type="password" required id="password">
+                    </div>
+                    <input type="submit" id="login_submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <template id="apple">
         <div class="content">
             <div class="dropper">
                 <div class="drop-area">
@@ -46,12 +102,78 @@
             </div>
             <button id="finder">Find Match</button>
         </div>
-    </div>
+    </template>
 
-    <button id="download">Dowload File</button>
-    <footer>
-        <div class="college">Laurentian University. Sudbury, Ontario, Canada. All Rights Reserved. © 2020.</div>
-    </footer>
+    <template id="ball">
+        <button id="download">Dowload File</button>
+        <footer>
+            <div class="college">Laurentian University. Sudbury, Ontario, Canada. All Rights Reserved. © 2020.</div>
+        </footer>
+
+        <script>
+
+            let stdzone = new drzon("student")
+            let teazone = new drzon("teacher")
+
+            document.querySelector("#download").addEventListener("click", e => {
+                let temp = [
+                    { "one": "one", 'two': "two", "thr": "three" }
+                ]
+                var workSheet = XLSX.utils.json_to_sheet(finalFile);
+                console.log("THis is Worksheet", workSheet);
+                var wb = XLSX.utils.book_new();
+                console.log("THis is workbook", wb)
+                XLSX.utils.book_append_sheet(wb, workSheet);
+                var bin = XLSX.write(wb, { bookType: 'xlsx', type: "binary" });
+                saveAs(new Blob([s2ab(bin)], { type: "application/octet-stream" }), 'book.xlsx')
+            })
+
+            document.getElementById("finder").addEventListener("click", e => {
+                let down = document.querySelector("#download")
+                if (f1 && f2) {
+                    for (var arrayIndex in f1) {
+                        let data = {
+                            'Student Name': "",
+                            'Program': "",
+                            'Teacher Name': "",
+                            'Teacher Program': ""
+                        }
+                        if (f1.hasOwnProperty(arrayIndex)) {
+                            let row = f1[arrayIndex]
+                            let name = ""
+                            for (var columnName in row) {
+                                if (row.hasOwnProperty(columnName)) {
+
+                                    if (columnName == 'First Name') {
+                                        name += row[columnName]
+                                    } else if (columnName == 'Last Name') {
+                                        name += ' ' + row[columnName]
+                                    }
+                                    if (columnName == 'Program Name') {
+                                        data["Program"] = row[columnName]
+                                    }
+                                }
+                            }
+                            data["Student Name"] = name
+                            let teachr = findTeacher(row)
+                                // console.log(teachr.Name + " " + data['Student Name'])
+                            data['Teacher Name'] = teachr.Name
+                            data['Teacher Program'] = teachr.Program
+
+                            finalFile.push(data)
+                        }
+                    }
+
+
+                    down.style.display = "block"
+                    down.classList.add("slideInDown")
+                } else {
+                    shaker(document.querySelector(".content"))
+                }
+            })
+
+        </script>
+    </template>
 </body>
 
 </html>

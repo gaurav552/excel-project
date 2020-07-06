@@ -9,6 +9,61 @@ function getTemplate(TId) {
     return document.importNode(window.templates[TId], true)
 }
 
+localStorage.removeItem("uname")
+localStorage.removeItem("pass")
+
+if (!localStorage.getItem('uname') && !localStorage.getItem('pass')) {
+    var uname = "admin"
+    var pass = "Laurentian123"
+    localStorage.setItem("uname", uname)
+    localStorage.setItem("pass", pass)
+}
+
+
+document.querySelector("#login_form").addEventListener("submit", e => {
+    e.preventDefault()
+    let name = document.querySelector("#name").value
+    let password = document.querySelector("#password").value
+
+
+    if ((name == localStorage.getItem("uname")) && (password == localStorage.getItem("pass"))) {
+
+        console.log("match")
+        signin()
+
+    } else {
+        nomatch(name, localStorage.getItem("uname"), password, localStorage.getItem("pass"))
+        e.target.reset()
+    }
+})
+
+function nomatch(uname, iname, upass, ipass) {
+
+    if (uname != iname) {
+        shaker(document.querySelector(".content2"))
+    } else if(upass != ipass) {
+        shaker(document.querySelector("#password"))
+    }
+
+}
+
+function signin(){
+    document.querySelector(".login").remove()
+    let apple = getTemplate("apple")
+    let ball = getTemplate("ball")
+    document.querySelector(".main").appendChild(apple.querySelector(".content"))
+    document.querySelector("body").appendChild(ball.querySelector("button"))
+    document.querySelector("body").appendChild(ball.querySelector("footer"))
+    document.querySelector("body").appendChild(ball.querySelector("script"))
+}
+
+function shaker(el) {
+    el.classList.add("shakeX")
+    setTimeout(() => {
+        el.classList.remove("shakeX")
+    }, 500);
+}
+
 let f1, f2
 let finalFile = []
 Dropzone.autoDiscover = false;
@@ -78,23 +133,7 @@ class drzon {
     }
 }
 
-let stdzone = new drzon("student")
-let teazone = new drzon("teacher")
 
-
-
-document.querySelector("#download").addEventListener("click", e => {
-    let temp = [
-        { "one": "one", 'two': "two", "thr": "three" }
-    ]
-    var workSheet = XLSX.utils.json_to_sheet(finalFile);
-    console.log("THis is Worksheet", workSheet);
-    var wb = XLSX.utils.book_new();
-    console.log("THis is workbook", wb)
-    XLSX.utils.book_append_sheet(wb, workSheet);
-    var bin = XLSX.write(wb, { bookType: 'xlsx', type: "binary" });
-    saveAs(new Blob([s2ab(bin)], { type: "application/octet-stream" }), 'book.xlsx')
-})
 
 function s2ab(s) {
     var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
@@ -103,73 +142,48 @@ function s2ab(s) {
     return buf;
 }
 
-document.getElementById("finder").addEventListener("click", e => {
-    let down = document.querySelector("#download")
-    if (f1 && f2) {
-        for (var arrayIndex in f1) {
-            let data = {
-                'Student Name': "",
-                'Program': "",
-                'Teacher Name': "",
-                'Teacher Program': ""
-            }
-            if (f1.hasOwnProperty(arrayIndex)) {
-                let row = f1[arrayIndex]
-                let name = ""
-                for (var columnName in row) {
-                    if (row.hasOwnProperty(columnName)) {
 
-                        if (columnName == 'First Name') {
-                            name += row[columnName]
-                        } else if (columnName == 'Last Name') {
-                            name += ' ' + row[columnName]
-                        }
-                        if (columnName == 'Program Name') {
-                            data["Program"] = row[columnName]
-                        }
-                    }
-                }
-                data["Student Name"] = name
-                let teachr = findTeacher(data['Program'])
-                data['Teacher Name'] = teachr.Name
-                data['Teacher Program'] = teachr.Program
-
-                finalFile.push(data)
-            }
-        }
-
-
-        down.style.display = "block"
-        down.classList.add("slideInDown")
-    } else {
-        document.querySelector(".content").classList.add("shakeX")
-        setTimeout(() => {
-            document.querySelector(".content").classList.remove("shakeX")
-        }, 500);
-    }
-})
-
-function findTeacher(program) {
+function findTeacher(student) {
     let selected = {
         'Name': '',
         'Program': ''
     }
     for (var arrayIndex in f2) {
-        if (f2.hasOwnProperty(arrayIndex)) {
-            let row = f2[arrayIndex]
-            for (var columName in row) {
-                if (row.hasOwnProperty(columName)) {
-                    // console.log(columName+" : "+program)
-                    if (columName == 'Program of Study') {
-                        if (row[columName] == program) {
-                            // console.log(row[columName] +" : "+ program)
-                            selected.Name = row['Name']
-                            selected.Program = row[columName]
-                        }
-                    }
-                }
+        let row = f2[arrayIndex]
+        console.log(row)
+            // console.log(row['Program of Study'] +" :"+ student['Program Name'])
+        if (row['Program of Study'] == student['Program Name']) {
+            console.log(row['Name'] + " : " + student['First Name'])
+            selected.Name = row['Name']
+            selected.Program = row['Program of Study']
+            return {
+                'Name': row['Name'],
+                'Program': row['Program of Study']
             }
         }
     }
-    return selected
+
+
+    let rand = Math.floor(Math.random() * f2.length)
+    let temprow = f2[rand]
+
+    selected.Name = temprow['Name']
+    selected.Program = temprow['Program of Study']
+    return {
+        'Name': temprow['Name'],
+        'Program': temprow['Program of Study']
+    }
+
+
+    // for (var columName in row) {
+    //     if (row.hasOwnProperty(columName)) {
+    //         // console.log(columName+" : "+program)
+    //         if (columName == 'Program of Study') {
+
+    //         }
+    //     }
+    // }
+
+
+
 }
